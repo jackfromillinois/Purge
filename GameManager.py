@@ -98,8 +98,10 @@ def twoplayers():
             print(e.with_traceback())
 
 
-
+samecitycnt = 0
 def ai_knight():
+    global samecitycnt
+
     purge = Purge(12, 12, 3, 15)
     print("======> Initial Map <======")
     purge.showMap()
@@ -146,6 +148,13 @@ def ai_knight():
             map, M, N = purge.map, purge.M, purge.N
             knight = purge.knight
 
+            if purge.peekCellBase(*purge.doctor.root) == purge.peekCellBase(*purge.doctor.root):
+                print(samecitycnt)
+                samecitycnt += 1
+                if samecitycnt == 10:
+                    knight.switchPositionWithDoctor()
+                    samecitycnt = 0
+
             nearbyDisease = []
             for i in range(1, 3):
                 for di, dj in DIRECTIONS_ALL:
@@ -153,7 +162,7 @@ def ai_knight():
                     if not inBounds(*newPos, M, N): continue
                     if isinstance(purge.peekCell(*newPos), Disease):
                         nearbyDisease.append(newPos)
-                
+            
             if nearbyDisease:
                 targetPos = random.choice(nearbyDisease)
                 for DIFF in DIRECTIONS_ALL:
