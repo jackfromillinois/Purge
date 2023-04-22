@@ -48,6 +48,3 @@
    <li><a href="https://www.zmangames.com/en/games/pandemic/">Pandemic</a></li>
    <li><a href="https://en.wikipedia.org/wiki/Monopoly_(game)">Monopoly</a></li>
 </ol>
-
-<h1>Old Repository</h1>
-<a href="https://github.com/jackfromillinois/Purge">https://github.com/jackfromillinois/Purge</a>
