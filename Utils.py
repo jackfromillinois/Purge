@@ -1,6 +1,6 @@
 """Utility Module for the game purge"""
 from __future__ import annotations
-import os, sys, argparse, timeit, requests, random, copy
+import os, sys, argparse, timeit, random, copy
 from typing import *
 from pathlib import Path
 from Logger import Logger, DebugLevel

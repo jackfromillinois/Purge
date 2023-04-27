@@ -44,7 +44,18 @@ def twoplayers():
                     print("unknown command, try again...")
                 
                 if docActionCnt == 0: break
-            
+
+            status = purge.roundEnd()
+            print("Game Status:", status)
+            # print("Disease Seed Count:", len(purge.diseaseSeeds))
+
+            if status == 1:
+                print("you win!")
+                break
+            elif status == -1:
+                print("you lose!")
+                break
+
             # =============================
             # Kngiht
             # =============================
@@ -83,7 +94,7 @@ def twoplayers():
             # ========================================
             status = purge.roundEnd()
             print("Game Status:", status)
-            print("Disease Seed Count:", len(purge.diseaseSeeds))
+            # print("Disease Seed Count:", len(purge.diseaseSeeds))
             
             if status == 1:
                 print("you win!")
@@ -140,7 +151,17 @@ def ai_knight():
                     print("unknown command, try again...")
                 
                 if docActionCnt == 0: break
-            
+
+            status = purge.roundEnd()
+            print("Game Status:", status)
+            # print("Disease Seed Count:", len(purge.diseaseSeeds))
+
+            if status == 1:
+                print("you win!")
+                break
+            elif status == -1:
+                print("you lose!")
+                break
 
             # =============================
             # AI knight
@@ -215,7 +236,7 @@ def ai_knight():
             # ========================================
             status = purge.roundEnd()
             print("Game Status:", status)
-            print("Disease Seed Count:", len(purge.diseaseSeeds))
+            # print("Disease Seed Count:", len(purge.diseaseSeeds))
             
             if status == 1:
                 print("you win!")
