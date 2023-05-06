@@ -18,7 +18,7 @@
         <h4>Doctor</h4>
         <ul>
             <li>
-                Can place a nurse in any adjacent cell (who can then cure infections in a 3x3 square centered around the position of the nurse)
+                Can place a nurse in any adjacent cell
                 <p>The nurse can cure infections in a 3x3 square centered around the position of the nurse. After performing this, the nurese will die</p>
             </li>
             <li>Can sacrifice movement for another action in the same turn</li>
@@ -29,6 +29,7 @@
         <h4>Knight</h4>
         <ul>
             <li>Can swap position with the doctor</li>
+            <li>Can sacrifice movement for another action in the same turn</li>
             <li>Can perform throwing disinfectant two cells away from the knight's current position, the disinfectant can stops diseases from spreading for 2 whole rounds</li>
         </ul>
     </li>
@@ -42,9 +43,48 @@
    </li>
 </ul>
 
+<h1>AI Knight</h1>
+
+run `python3 GameManager.py -ai` to play with an AI.
+
+This is a very simple AI player. The knight will try to locate an edge disease and move towards it. If the disease is in another city, the knight will locate the gate which connects to that city and then try to reach it.
+
+Once the targeted disease is within range for knight to throw disinfectant, the knight will perform this action.
+
+The simple AI can potentially prevent the doctor from going to another city via gate. If AI detects doctor and knight have been stuck in the same city for too many rounds, the knight will try to swap position with the doctor.
+
+<h1>Selected Algorithms and Functionalities</h1>
+
+- **Generating a Valid Map**<br>
+    The worst case is `O(∞)` because we are randomly selecting the center of each city, and each of them will grow outward based on its edge cells. However, we have implemented optimizations to prevent two cities growing into each other. Once we have all the cities laid out, we will use union find to check if we indeed have generated the required city count, and if the cells from different cities touch. Even with the optimizations, if one city cannot grow to the specified block count, the map is still considered invalid.
+
+- **A Star Search (Dijkstra's algorithm)**<br>
+    Used for connecting city to city. First, find the edge of the cities, and randomly pick two positions, one for each city. Second, do an A* search to find the shortest path.<br>
+    **Time Complexity: (Original)**
+    $$O(|V| + |E|)$$
+    Originally, the time complexity is based on a graph. One vertex can connect to (V-1) vertices. However, we are working on a 2d array, and the traversing can only go to the adjacent cells. In this case, the time complexity is still `O(M * N)`, where N is the height of the board, and M is the width.
+
+    **Space Complexity: (Original)**<br>
+    $$O(|V| + |E|)$$
+    Similar to above logic, the worst case space complexity can also be `O(M * N)`
+
+- **Union Find**<br>
+    Used in multiple places. For example, verifying how many random cities has been generated. We are using the top-left position as the root for each connected cell.
+
+    In this case, because of backpropagation, the original union find will not contribute much to our program. We are `actually using dfs` to merge all the cells together (just to validate).
+
+    **Time & Space Complexity:**
+    $$O(M * N)$$
+    The worst case for merging is also based on the board size.
+
+- **Data Structure for Each Cell**<br>
+    Stack is being used here for tracking everything in a particular cell. The look-up time for each cell is `O(1)`. The space used will also be `O(1)` since we have limited classes that can be placed in the stack and once a character/disease has been placed, nothing can be placed upon it until the top-most thing has been popped.
 
 <h1>References</h1>
 <ol>
    <li><a href="https://www.zmangames.com/en/games/pandemic/">Pandemic</a></li>
    <li><a href="https://en.wikipedia.org/wiki/Monopoly_(game)">Monopoly</a></li>
 </ol>
+
+<h1>Old Repository</h1>
+<a href="https://github.com/jackfromillinois/Purge">https://github.com/jackfromillinois/Purge</a>
